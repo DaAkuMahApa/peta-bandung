@@ -1,0 +1,30 @@
+<html>
+<head>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <title>Peta Kita</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
+  <style>
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<script>
+  var host = 'data-blankon-id.github.io'
+  if (window.location.host == host && window.location.protocol != 'https:')
+    window.location.protocol = 'https:'
+  var map = L.map('map', {crs: L.CRS.EPSG4326}).setView([-6.9147444, 107.6098111], 14); // Bandung Raya!
+  var mapServerUrl = 'http://petakita.com/wms/mapserv?map=petakita';
+  var tiles = L.tileLayer.wms(mapServerUrl, {
+    layers: 'Administrasi,Sungai,sungai_besar,taman,Area,Jalan_Bdg,desa,kecamatan',
+    format: 'image/png',
+    transparent: true,
+    attribution: 'PetaKita.com',
+    version: '1.1.1'
+  });
+  map.addLayer(tiles);
+</script>
+</body>
+</html>
